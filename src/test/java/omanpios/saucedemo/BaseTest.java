@@ -1,6 +1,7 @@
 package omanpios.saucedemo;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,8 +15,8 @@ public class BaseTest {
 		this.driver = driver;
 	}
 	
-	public WebDriver chromeDriverConnection(WebDriver driver) {
-		System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
+	public WebDriver chromeDriverConnection() {
+		System.setProperty("webdriver.chrome.driver", "src\\test\\java\\resources\\chromedriver.exe");
 		driver = new ChromeDriver();
 		return driver;
 	}
@@ -38,5 +39,11 @@ public class BaseTest {
 
 	public void type(By locator, String text) {
 		findElement(locator).sendKeys(text);
+	}
+	
+	public void visit(String url) {
+		driver.get(url);
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
 	}
 }
